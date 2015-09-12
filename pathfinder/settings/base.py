@@ -66,11 +66,10 @@ WSGI_APPLICATION = 'pathfinder.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_mongodb_engine',
-        'NAME': os.path.join(BASE_DIR, 'db.mongodb'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 # Internationalization
 from django.utils.translation import ugettext_lazy as _
 LANGUAGE_CODE = 'en-us'
