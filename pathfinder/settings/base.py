@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pathfinder.apps.trail',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,7 +70,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 # Internationalization
 from django.utils.translation import ugettext_lazy as _
 LANGUAGE_CODE = 'en-us'
