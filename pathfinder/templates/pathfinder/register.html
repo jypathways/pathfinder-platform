@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load l10n %}
+{% load tz %}
+
+{% block head_title %}PathFinder{% endblock %}
+
+{% block content %}
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>{% trans "Register Here"%}</h1>
+		
+		{% if registered %}
+        	Rango says: <strong>thank you for registering!</strong>
+        	<a href="/rango/">Return to the homepage.</a><br />
+		{% else %}
+        	Rango says: <strong>register here!</strong><br />
+
+        	<form id="user_form" method="post" action="/rango/register/"
+                enctype="multipart/form-data">
+            	{% csrf_token %}
+
+            	<!-- Display each form. The as_p method wraps each element in a paragraph
+                 (<p>) element. This ensures each element appears on a new line,
+                 making everything look neater. -->
+            	{{ user_form.as_p }}
+            	{{ profile_form.as_p }}
+
+            	<!-- Provide a button to click to submit the form. -->
+            	<input type="submit" name="submit" value="Register" />
+        	</form>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2 id="local-date">{{today}}</h2>
+          <p>This is the time using your local information </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2 id="non-local-date">{{today|unlocalize}}</h2>
+          <p>This is the default time format.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Time Zones</h2>
+          <p> Barcelona: <span id="time-tz">{{now|time:"H:i"}}</span></p>
+          <p> UTC: <span id="time-utc">{{now|utc|time:"H:i"}}</span></p>
+          <p> New York: <span id="time-ny">{{now|timezone:"America/New_York"|time:"H:i"}}</span></p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

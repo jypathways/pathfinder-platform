@@ -66,8 +66,12 @@ WSGI_APPLICATION = 'pathfinder.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'trail_db',
+        'USER': 'admin',
+        'PASSWORD': 'password',
+        'HOST': '',
+        'PORT': '',
     }
 }
 # Internationalization
@@ -114,3 +118,5 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_PROFILE_MODULE = 'trail.UserProfile'
