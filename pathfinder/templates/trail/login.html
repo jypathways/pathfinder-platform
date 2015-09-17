@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load l10n %}
+{% load tz %}
+
+{% block head_title %}PathFinder{% endblock %}
+
+{% block content %}
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+		    <h2>Log in</h2>
+        <br>
+        <form class="form-horizontal" id="login_form" method="post" action="/login/">
+            {% csrf_token %}
+            <p><label>Username: </label>
+            <input type="text" name="username" value="" size="50" /></p>
+            <br><br/>
+            <p><label>Password: </label>
+            <input type="password" name="password" value="" size="50" /></p>
+            <br><br/>
+
+            <input type="submit" value="submit"/>
+        </form>
+
+      </div>
+    </div>
+
+{% endblock %}
