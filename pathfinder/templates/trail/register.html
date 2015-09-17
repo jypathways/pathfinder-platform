@@ -10,22 +10,21 @@
   <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>{% trans "Register Here"%}</h1>
 		
-		{% if registered %}
-        	Rango says: <strong>thank you for registering!</strong>
-        	<a href="/rango/">Return to the homepage.</a><br />
-		{% else %}
-        	Rango says: <strong>register here!</strong><br />
+		    {% if registered %}
+        	 <h1>Thank You for Registering</h1>
+        	 <a href="/">Return to the homepage.</a><br />
+		    {% else %}
+        	 <h2>Register Here</h2><br />
 
-        	<form id="user_form" method="post" action="/rango/register/"
+        	<form class="form-horizontal" id="user_form" method="post" action="/register/"
                 enctype="multipart/form-data">
             	{% csrf_token %}
 
             	<!-- Display each form. The as_p method wraps each element in a paragraph
                  (<p>) element. This ensures each element appears on a new line,
                  making everything look neater. -->
-            	{{ user_form.as_p }}
+            	{{ user_form.as_p }}     
             	{{ profile_form.as_p }}
 
             	<!-- Provide a button to click to submit the form. -->
@@ -36,9 +35,9 @@
       </div>
     </div>
 
-    <div class="container">
+    <!--<div class="container">-->
       <!-- Example row of columns -->
-      <div class="row">
+      <!--<div class="row">
         <div class="col-md-4">
           <h2 id="local-date">{{today}}</h2>
           <p>This is the time using your local information </p>
@@ -57,6 +56,6 @@
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
       </div>
-    </div>
+    </div>-->
 
 {% endblock %}

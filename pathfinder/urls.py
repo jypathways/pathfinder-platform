@@ -8,7 +8,9 @@ urlpatterns = [
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
         home_files, name='home-files'),
     url(r'i18n/', include('django.conf.urls.i18n')),
-    url(r'^login', login),
+    url(r'^register/$', register, name='register'), 
+    url(r'^login/$', user_login, name='login'),
+    url(r'^logout/$', user_logout, name='logout'),
 ]
 
 urlpatterns += i18n_patterns(

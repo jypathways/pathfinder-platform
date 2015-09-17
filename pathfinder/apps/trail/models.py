@@ -6,9 +6,7 @@ from django.db.models.signals import post_save
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
-	date_joined = models.DateTimeField(('date joined'), default=timezone.now)
-	website = models.URLField(blank=True)
-	picture = models.ImageField(upload_to='profile_images', blank=True)
+	date_joined = models.DateTimeField(('date_joined'), default=timezone.now)
 	
 	objects = UserManager()
 	
