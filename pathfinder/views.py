@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic import DetailView
 from .apps.trail.models import *
 
@@ -75,3 +75,18 @@ def register(request):
 def project_details(request, pk):
     project = get_object_or_404(Project, pk=pk)
     return render(request, 'trail/project.html', {'project': project})
+    
+@login_required
+def add(request):
+    if request.method == 'POST':
+        form = AddProject(request.POST)
+
+        if form.is_valid():
+            project = form.save()
+            return render(request, 'trail/project.html', {'project': project})
+    else:
+        form = AddProject()
+
+    return render(request, 'trail/add.html', {
+        'form': form,
+    })

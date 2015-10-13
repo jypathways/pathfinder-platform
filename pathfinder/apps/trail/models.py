@@ -25,12 +25,13 @@ class Category(models.Model):
         return self.name
 	
 class Project(models.Model):
-    category = models.ForeignKey(Category)
+    # category = models.ForeignKey(Category, null=True, blank=True)
     title = models.CharField(max_length=128)
-    # slug = models.SlugField(db_index=False, blank=True, unique=True)
+    slug = models.SlugField(db_index=False, blank=True, unique=True)
     url = models.URLField()
     likes = models.IntegerField(default=0)
     date_created = models.DateTimeField(('date_joined'), default=timezone.now)
+    description = models.TextField(blank = True)
     
     @models.permalink
     def get_absolute_url(self):
