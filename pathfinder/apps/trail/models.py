@@ -32,6 +32,7 @@ class Project(models.Model):
     date_created = models.DateTimeField(('date_joined'), default=timezone.now)
     description = models.TextField(blank = True)
     category = models.ForeignKey(Category, default=1)
+    author = models.ForeignKey(User, null=True)
     
     @models.permalink
     def get_absolute_url(self):

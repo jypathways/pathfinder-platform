@@ -78,13 +78,13 @@ def project_details(request, pk):
     
 @login_required
 def add(request):
-    created = False
     if request.method == 'POST':
         form = AddProject(request.POST)
 
         if form.is_valid():
-            created = True
             project = form.save()
+            project.author = request.user
+            project.save()
             return render(request, 'trail/project.html', {'project': project})
     else:
         form = AddProject()
@@ -92,3 +92,10 @@ def add(request):
     return render(request, 'trail/add.html', {
         'form': form,
     })
+    
+@login_required
+def get_path(request):
+    author_id = request.user.id
+    projects = Project.objects.filter(author=author_id).order_by('date_created')[:5]
+    return render(request, 'trail/myPath.html', {'projects': projects})
+    
