@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load l10n %}
+{% load tz %}
+
+{% block head_title %}PathFinder{% endblock %}
+
+{% block content %}
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+          <a href="/">Return to the homepage.</a><br />
+          <h2>{{project.title}}</h2>
+          <br><br>
+          <p>Created on: {{project.date_created}}</p>
+          <p>Category: {{project.category}}</p>
+          <p>Project link: {{project.url}}</p>
+          <p>Likes: {{project.likes}}</p>
+
+      </div>
+    </div>
+{% endblock %}

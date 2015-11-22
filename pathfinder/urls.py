@@ -11,9 +11,14 @@ urlpatterns = [
     url(r'^register/$', register, name='register'), 
     url(r'^login/$', user_login, name='login'),
     url(r'^logout/$', user_logout, name='logout'),
+    url(r'^project/(?P<pk>[0-9]+)/', project_details, name ='project'),
+    url(r'^project/create', add, name ='add_project'),
+    url(r'^myPath', get_path, name ='get_path'),
 ]
 
 urlpatterns += i18n_patterns(
     url(r'^$', home, name='home'),
     url(r'^admin/', include(admin.site.urls)),
+    
+    
 )

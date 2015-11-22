@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django.utils.timezone import now
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.views.generic import DetailView
+from .apps.trail.models import *
 
 
 def home(request):
@@ -38,16 +40,12 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
-        
-        
+              
 def register(request):
-    
     registered = False
-    
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
         # profile_form = UserProfileForm(data=request.POST)
-        
         if user_form.is_valid():
             # Save the user's form data to the database.
             user = user_form.save()
@@ -66,14 +64,38 @@ def register(request):
             
         else:
             # print(user_form.errors, profile_form.errors) 
-            print(user_form.errors) 
-            
+            print(user_form.errors)      
     else:
-        
         user_form = UserForm()
-        # profile_form = UserProfileForm()
-        
-        
+        # profile_form = UserProfileForm()    
     return render(request,
             '../templates/trail/register.html',
             {'user_form': user_form, 'registered': registered} )
+
+def project_details(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    return render(request, 'trail/project.html', {'project': project})
+    
+@login_required
+def add(request):
+    if request.method == 'POST':
+        form = AddProject(request.POST)
+
+        if form.is_valid():
+            project = form.save()
+            project.author = request.user
+            project.save()
+            return render(request, 'trail/project.html', {'project': project})
+    else:
+        form = AddProject()
+
+    return render(request, 'trail/add.html', {
+        'form': form,
+    })
+    
+@login_required
+def get_path(request):
+    author_id = request.user.id
+    projects = Project.objects.filter(author=author_id).order_by('date_created')[:5]
+    return render(request, 'trail/myPath.html', {'projects': projects})
+    
