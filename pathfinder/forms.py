@@ -16,11 +16,11 @@ class AddProject(forms.ModelForm):
         model = Project
         fields = (
             'title',
-            # 'category',
+            'category',
             'description',
             'url',
         )
-        # category = forms.ModelChoiceField(queryset=Category.objects.all().order_by('name'))
+        category = forms.ModelChoiceField(queryset=Category.objects.all().order_by('name'))
 
     def save(self):
         if self.instance.pk:

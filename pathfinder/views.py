@@ -78,10 +78,12 @@ def project_details(request, pk):
     
 @login_required
 def add(request):
+    created = False
     if request.method == 'POST':
         form = AddProject(request.POST)
 
         if form.is_valid():
+            created = True
             project = form.save()
             return render(request, 'trail/project.html', {'project': project})
     else:

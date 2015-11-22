@@ -120,3 +120,4 @@ TEMPLATES = [
 ]
 
 AUTH_PROFILE_MODULE = 'trail.UserProfile'
+
