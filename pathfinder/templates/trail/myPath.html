@@ -11,10 +11,10 @@
     <div class="jumbotron">
       <div class="container">
          <h2>My Path</h2>
+         <br><br>
          {% for project in projects %}
-          <p>{{project.title}} created on {{project.date_created}}</p>
-          <a href=/project/{{project.pk}}>see details</a>
-          <br><br>
+          <p><a href=/project/{{project.slug}}>{{project.title}}</a> created on {{project.date_created}}</p>
+          <br>
          {% endfor %}
       </div>
     </div>
