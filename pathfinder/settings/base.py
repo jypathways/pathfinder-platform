@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pathfinder.apps.trail',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
