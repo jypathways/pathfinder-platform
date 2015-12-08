@@ -72,8 +72,8 @@ def register(request):
             '../templates/trail/register.html',
             {'user_form': user_form, 'registered': registered} )
 
-def project_details(request, pk):
-    project = get_object_or_404(Project, pk=pk)
+def project_details(request, slug):
+    project = get_object_or_404(Project, slug=slug)
     return render(request, 'trail/project.html', {'project': project})
     
 @login_required

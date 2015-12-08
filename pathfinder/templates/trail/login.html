@@ -15,13 +15,13 @@
         <form class="form-horizontal" id="login_form" method="post" action="/login/">
             {% csrf_token %}
             <p><label>Username: </label>
-            <input type="text" name="username" value="" size="50" /></p>
+            <input type="text" class="form-control" name="username" value="" size="50" /></p>
             <br><br/>
             <p><label>Password: </label>
-            <input type="password" name="password" value="" size="50" /></p>
+            <input type="password" class="form-control" name="password" value="" size="50" /></p>
             <br><br/>
 
-            <input type="submit" value="submit"/>
+            <input type="submit" class="btn btn-primary" value="submit"/>
         </form>
 
       </div>

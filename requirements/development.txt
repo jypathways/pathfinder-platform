@@ -6,3 +6,4 @@ psycopg2==2.6.1
 Pygments==1.6
 pytz==2014.4
 Sphinx==1.2.2
+django-bootstrap3==6.2.2
