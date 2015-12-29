@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import UserProfile, Category, Project
+from .models import UserProfile, Category, Spark
 
 
 # Define an inline admin descriptor for UserProfile model
@@ -22,4 +22,4 @@ admin.site.register(UserProfile)
 
 
 admin.site.register(Category)
-admin.site.register(Project)
+admin.site.register(Spark)

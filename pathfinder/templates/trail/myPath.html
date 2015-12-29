@@ -5,17 +5,76 @@
 
 {% block head_title %}PathFinder{% endblock %}
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <!-- Style-->
+    <style>
+      html, body {
+      height:100%;
+      padding: 0px;
+      margin: 0px;
+      }
+    </style>
+    <!-- HTML5 shim, for IE6-8 support of HTML elements--><!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="shortcut icon" href="//cdn.knightlab.com/libs/blueline/latest/assets/logos/favicon.ico"> 
+</head>
+  <body>
+      {% block content %}
 
   <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
          <h2>My Path</h2>
-         <br><br>
-         {% for project in projects %}
-          <p><a href=/project/{{project.slug}}>{{project.title}}</a> created on {{project.date_created}}</p>
-          <br>
-         {% endfor %}
+          <br><br>
+         <!-- Demo -->
+          <div id="timeline-embed">
+            <div id="timeline"></div>
+          </div>
+          <!-- build:css //cdn.knightlab.com/libs/timeline3/%(cdn)s/css/timeline.css -->
+          <link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/fonts/font.knightlab.css">
+          <!-- endbuild -->
+          <!-- build:css //cdn.knightlab.com/libs/timeline3/%(cdn)s/css/timeline.css -->
+          <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+          <!-- endbuild -->
+          <!-- build:js //cdn.knightlab.com/libs/timeline3/%(cdn)s/js/timeline-min.js -->
+          <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline-min.js"></script>
+          <!-- endbuild -->
+          <script>
+            $(document).ready(function(){
+                var embed = document.getElementById('timeline-embed');
+                embed.style.height = getComputedStyle(document.body).height;
+                var options = {
+                    hash_bookmark: false,
+                    initial_zoom: 3,
+                  }
+                window.timeline = new TL.Timeline('timeline-embed', '/static/example.json', options);
+                window.addEventListener('resize', function() {
+                  var embed = document.getElementById('timeline-embed');
+                  embed.style.height = getComputedStyle(document.body).height;
+                  timeline.updateDisplay();
+                })
+              });
+        </script>
+        <!-- Analytics-->
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-537357-19']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
       </div>
     </div>
 {% endblock %}
+
+  </body>
+</html>

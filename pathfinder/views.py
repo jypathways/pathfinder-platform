@@ -8,17 +8,16 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic import DetailView
 from .apps.trail.models import *
+import json
 
 
 def home(request):
     today = datetime.date.today()
     return render(request, "trail/index.html", {'today': today, 'now': now()})
 
-
 def home_files(request, filename):
     return render(request, filename, {}, content_type="text/plain")
-    
-    
+   
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -72,30 +71,73 @@ def register(request):
             '../templates/trail/register.html',
             {'user_form': user_form, 'registered': registered} )
 
-def project_details(request, slug):
-    project = get_object_or_404(Project, slug=slug)
-    return render(request, 'trail/project.html', {'project': project})
+def spark_details(request, slug):
+    spark = get_object_or_404(Spark, slug=slug)
+    return render(request, 'trail/spark.html', {'spark': spark})
     
 @login_required
-def add(request):
+def add_spark(request):
     if request.method == 'POST':
-        form = AddProject(request.POST)
+        form = AddSpark(request.POST)
 
         if form.is_valid():
-            project = form.save()
-            project.author = request.user
-            project.save()
-            return render(request, 'trail/project.html', {'project': project})
+            spark = form.save()
+            spark.author = request.user
+            spark.save()
+            return render(request, 'trail/spark.html', {'spark': spark})
     else:
-        form = AddProject()
+        form = AddSpark()
 
-    return render(request, 'trail/add.html', {
+    return render(request, 'trail/addSpark.html', {
         'form': form,
     })
     
 @login_required
 def get_path(request):
     author_id = request.user.id
-    projects = Project.objects.filter(author=author_id).order_by('date_created')[:5]
-    return render(request, 'trail/myPath.html', {'projects': projects})
+#    sparks = Spark.objects.filter(author=author_id).order_by('date_created')[:5]
+    contruct_json(author_id)
+    return render(request, 'trail/myPath.html')
+
+def contruct_json(author_id):
+    sparks = Spark.objects.filter(author=author_id)
+    json_file = {}
+    json_file['events'] = populate_events(sparks)
+    with open('pathfinder/static/example.json', 'w') as outfile:
+        json.dump(json_file, outfile)
+
+def populate_events(sparks):
+    events = []
+    for spark in sparks:
+        dict = {}
+        if spark.url is not None:
+            dict['media'] = format_media(spark.url)
+        if spark.start_date is not None:
+            dict['start_date'] = format_date(spark.start_date)
+        if spark.end_date is not None:
+            dict['end_date'] = format_date(spark.end_date)
+        if spark.description is not None:
+            dict['text'] = format_text(spark.name, spark.description)
+        events.append(dict)
+    return events
+
+def format_media(url):
+    dict = {}
+    dict['url'] = url
+    return dict
+
+def format_date(date):
+    dict = {}
+    dict['month'] = date.month
+    dict['day'] = date.day
+    dict['year'] = date.year
+    return dict
+
+def format_text(name, description):
+    dict = {}
+    dict['headline'] = name
+    dict['text'] = description
+    return dict
+ 
+
     

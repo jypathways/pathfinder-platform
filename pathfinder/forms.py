@@ -11,22 +11,28 @@ class UserForm(forms.ModelForm):
 		model = User
 		fields = ('username', 'first_name', 'last_name', 'email', 'password')
         
-class AddProject(forms.ModelForm):
+class AddSpark(forms.ModelForm):
     class Meta:
-        model = Project
+        model = Spark
         fields = (
-            'title',
+            'name',
             'category',
-            'description',
+            'start_date',
+            'end_date',
             'url',
+            'description',
         )
         category = forms.ModelChoiceField(queryset=Category.objects.all().order_by('name'))
+        widgets = {
+            'start_date' : forms.DateInput(attrs={'type':'date'}),
+            'end_date' : forms.DateInput(attrs={'type':'date'}),
+        }
 
     def save(self):
         if self.instance.pk:
-            return super(AddProject, self).save()
+            return super(AddSpark, self).save()
             
-        instance = super(AddProject, self).save(commit=False)
+        instance = super(AddSpark, self).save(commit=False)
         instance.slug =  slugify(instance.title)
         instance.save()
 
