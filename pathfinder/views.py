@@ -95,16 +95,13 @@ def add_spark(request):
 @login_required
 def get_path(request):
     author_id = request.user.id
-#    sparks = Spark.objects.filter(author=author_id).order_by('date_created')[:5]
-    contruct_json(author_id)
-    return render(request, 'trail/myPath.html')
+    return render(request, 'trail/myPath.html', {'json_file': contruct_json(author_id)})
 
 def contruct_json(author_id):
     sparks = Spark.objects.filter(author=author_id)
     json_file = {}
     json_file['events'] = populate_events(sparks)
-    with open('pathfinder/static/example.json', 'w') as outfile:
-        json.dump(json_file, outfile)
+    return json.dumps(json_file)
 
 def populate_events(sparks):
     events = []
