@@ -43,4 +43,6 @@ class HomeNewVisitorTest(StaticLiveServerTestCase):
         self.assertNotEqual(tz, utc)
         self.assertNotIn(ny, [tz, utc])
 
-
+    # def test_log_in_form(self):
+    #     self.browser.get(self.get_full_url("home"))
+    #     username_input = self.browser.find_element_by_id("")

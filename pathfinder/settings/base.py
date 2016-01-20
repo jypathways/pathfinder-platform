@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'pathfinder.apps.trail',
     'bootstrap3',
+    'pathfinder.tests',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -121,4 +122,3 @@ TEMPLATES = [
 ]
 
 AUTH_PROFILE_MODULE = 'trail.UserProfile'
-
