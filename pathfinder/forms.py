@@ -10,7 +10,7 @@ class UserForm(forms.ModelForm):
 	class Meta:
 		model = User
 		fields = ('username', 'first_name', 'last_name', 'email', 'password')
-        
+
 class AddSpark(forms.ModelForm):
     class Meta:
         model = Spark
@@ -28,12 +28,17 @@ class AddSpark(forms.ModelForm):
             'end_date' : forms.DateInput(attrs={'type':'date'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        self.author = kwargs.pop('author')
+        super().__init__(*args, **kwargs)
+
+
     def save(self):
         if self.instance.pk:
             return super(AddSpark, self).save()
-            
         instance = super(AddSpark, self).save(commit=False)
-        instance.slug =  slugify(instance.title)
+        instance.slug =  slugify(instance.name)
+        instance.author = self.author
         instance.save()
 
         return instance
