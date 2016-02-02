@@ -44,7 +44,7 @@
             <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
                 <li><a href="/myPath">My Path</a></li>
-                <li><a href="/project/add">Add New Spark</a></li>
+                <li><a href="/spark/add">Add New Spark</a></li>
                 {% else %}
                 <li><a href="/login">My Path</a></li>
                 <li><a href="/login">Add New Spark</a></li>
@@ -63,15 +63,14 @@
                 </ul>
                 </li>-->
             </ul>
-            
-            
+
+
           <form class="navbar-form navbar-right" role="form" action="/login/" method="post">
           {% csrf_token %}
             {% if user.is_authenticated %}
-            <a class="btn btn-primary" href="/logout/">Log out</a>
+            <a id="logout" class="btn btn-primary" href="/accounts/logout">Log out</a>
             {% else %}
             <form class="form-horizontal" id="login_form" method="post" action="/login/">
-                
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="text" placeholder="Username" name="username" value=""  class="form-control"/></p>
@@ -79,16 +78,15 @@
                     <div class="form-group">
                         <input type="password" placeholder="Password" name="password" value=""  class="form-control"/></p>
                     </div>
-            
-                    
-                    <button type="submit" class="btn btn-success">Log in</button>
-            
-                    <a class="btn btn-primary" href="/register/">Join us</a>
-            </form>  
+                    <button id="login" type="submit" class="btn btn-success">Log in</button>
+                    <a id="register" class="btn btn-primary" href="/register/">Join us</a>
+                    <a id="google_login" href="/accounts/google/login" class="btn btn-success">
+                        Google+
+                    </a>
+            </form>
             {% endif %}
-            
-            
           </form>
+
         </div><!--/.navbar-collapse -->
       </div>
     </div>

@@ -16,8 +16,8 @@
       <div class="container">
 		    <h2>Add a New Spark</h2>
         <br>
-        
-        <form class="form-horizontal" id="project_form" method="post" action="/project/create">
+
+        <form class="form-horizontal" id="project_form" method="post" action="/spark/add">
             {% csrf_token %}
             {% bootstrap_form form%}
             <input type="submit" class="btn btn-primary" value="submit"/>

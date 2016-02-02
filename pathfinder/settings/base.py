@@ -116,9 +116,33 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                "django.core.context_processors.request",
             ],
         },
     },
 ]
 
 AUTH_PROFILE_MODULE = 'trail.UserProfile'
+
+AUTHENTICATION_BACKENDS = (
+    # Default backend
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+INSTALLED_APPS += (
+    # The Django sites framework is required
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+)
+
+SITE_ID = 1
+
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_QUERY_EMAIL = True
+LOGIN_REDIRECT_URL = "/"

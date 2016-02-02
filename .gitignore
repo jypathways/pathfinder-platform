@@ -1,3 +1,5 @@
 *.pyc
 *.sqlite3
-
+pathfinder/fixtures
+htmlcov/
+.coverage

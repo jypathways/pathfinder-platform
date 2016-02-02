@@ -51,15 +51,10 @@ class SparkFormTest(TestCase):
             end_date="2014-1-1",
             url="http://test.com",
             description="This is a test description",
-            author=self.user,
         )
 
     def test_init(self):
-        AddSpark(author=self.user,)
-
-    def test_init_without_entry(self):
-        with self.assertRaises(KeyError):
-            AddSpark()
+        AddSpark()
 
     def test_valid_data(self):
         form = AddSpark({
@@ -69,7 +64,7 @@ class SparkFormTest(TestCase):
             'end_date': "2014-1-1",
             'url': "http://test.com",
             'description': "This is a test description",
-        }, author=self.user)
+        })
         self.assertTrue(form.is_valid())
         spark = form.save()
         self.assertEqual(spark.name, "Test Project")
@@ -78,10 +73,9 @@ class SparkFormTest(TestCase):
         self.assertEqual(spark.url, "http://test.com")
         self.assertEqual(spark.description, "This is a test description")
         self.assertEqual(spark.category, self.category)
-        self.assertEqual(spark.author, self.user)
 
     def test_blank_data(self):
-        form = AddSpark({},author=None)
+        form = AddSpark({})
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors, {
             'name': ['This field is required.'],
@@ -98,7 +92,7 @@ class SparkFormTest(TestCase):
             'end_date': "2014-1-12",
             'url': "http://tttt.com",
             'description': "This is a test description",
-        }, author=self.user)
+        })
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors, {
             'name': ['Spark with this Name already exists.'],

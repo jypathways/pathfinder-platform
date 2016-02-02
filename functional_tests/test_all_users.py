@@ -6,6 +6,8 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.utils.translation import activate
 from django.utils import formats
 
+# coverage run --source=. --include=*.py --omit=pathfinder/settings/*,pathfinder/tests/*,tests/*,functional_tests/*,populate*,pathfinder/wsgi* manage.py test pathfinder
+
 
 class HomeNewVisitorTest(StaticLiveServerTestCase):
 
@@ -45,4 +47,7 @@ class HomeNewVisitorTest(StaticLiveServerTestCase):
 
     # def test_log_in_form(self):
     #     self.browser.get(self.get_full_url("home"))
-    #     username_input = self.browser.find_element_by_id("")
+    #     username_input = self.browser.find_element_by_name("username").text
+    #     self.assertIn('placeholder="Username"', username_input)
+    #     password_input = self.browser.find_element_by_name("password").text
+    #     self.assertIn('placeholder="Password"', password_input)
