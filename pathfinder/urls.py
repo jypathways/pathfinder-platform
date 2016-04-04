@@ -17,5 +17,5 @@ urlpatterns = [
     url(r'^logout/$', user_logout, name='logout'),
     url(r'^spark/(?P<slug>[\w-]+)/', spark_details, name ='spark'),
     url(r'^spark/add', add_spark, name ='add_spark'),
-    url(r'^myPath', get_path, name ='get_path'),
+    url(r'^path/(?P<username>\w+)', get_path, name ='get_path'),
 ]

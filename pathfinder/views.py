@@ -94,7 +94,6 @@ def add_spark(request):
         'form': form,
     })
 
-@login_required
-def get_path(request):
-    author_id = request.user.id
+def get_path(request, username):
+    author_id = User.objects.get(username=username).id
     return render(request, 'trail/myPath.html', {'json_file': construct_json(author_id)})

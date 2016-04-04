@@ -43,7 +43,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
-                <li><a href="/myPath">My Path</a></li>
+                <li><a href="/path/{{ user.username }}">My Path</a></li>
                 <li><a href="/spark/add">Add New Spark</a></li>
                 {% else %}
                 <li><a href="/login">My Path</a></li>
@@ -80,9 +80,8 @@
                     </div>
                     <button id="login" type="submit" class="btn btn-success">Log in</button>
                     <a id="register" class="btn btn-primary" href="/register/">Join us</a>
-                    <a id="google_login" href="/accounts/google/login" class="btn btn-success">
-                        Google+
-                    </a>
+                    <a id="google_login" href="/accounts/google/login" class="btn btn-success">Google+</a>
+                    <a id="facebook_login" href="/accounts/facebook/login" class="btn btn-success">Facebook</a>
             </form>
             {% endif %}
           </form>
